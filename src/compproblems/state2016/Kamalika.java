@@ -19,7 +19,7 @@ public class Kamalika {
 			ops.put(a.subtract(b), "Dif");
 			ops.put(a.add(b), "Sum");
 			try {
-				ops.put(a.divide(b), "Div");
+				ops.put(a.divide(b, BigDecimal.ROUND_UNNECESSARY), "Div");
 			} catch (Exception e) {
 				ops.put(a.divide(b, BigDecimal.ROUND_HALF_UP), "Div");
 			}

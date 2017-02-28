@@ -2,18 +2,19 @@ package compproblems.mazes;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Scanner;
 
 public class Cabbages {
 
-	static int R, C;
-	static char[][] maze;
-	static boolean onAang;
-	static Node aang;
-	static Node merchant;
-	static Queue<Node> queue;
+	private static int R, C;
+	private static char[][] maze;
+	private static boolean onAang;
+	private static Node aang;
+	private static Node merchant;
+	private static Queue<Node> queue;
 
 	public static void main(String[] args) throws FileNotFoundException {
 		Scanner file = new Scanner(new File("src/compproblems/mazes/cabbages.in"));
@@ -50,23 +51,17 @@ public class Cabbages {
 			int aangDist = aang.dist;
 			int merchDist = merchant.dist;
 			boolean collision = false;
-			Queue<Node> aangQ = new PriorityQueue<>();
-			Queue<Node> merchQ = new PriorityQueue<>();
-			while (aang != null) {
-				aangQ.add(aang);
+			ArrayList<Node> aangList = new ArrayList<>();
+			while (aang.prev != null) {
+				aangList.add(aang);
 				aang = aang.prev;
 			}
-
 			while (merchant != null) {
-				merchQ.add(merchant);
-				merchant = merchant.prev;
-			}
-
-			while (!(aangQ.isEmpty() || merchQ.isEmpty())) {
-				if (aangQ.poll().equals(merchQ.poll())) {
-					collision = true;
-					break;
+				for (Node n : aangList) {
+					if (n.equals(merchant) && n.dist == merchant.dist)
+						collision = true;
 				}
+				merchant = merchant.prev;
 			}
 
 
