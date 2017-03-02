@@ -19,11 +19,12 @@ public class GenericDijkstra {
 
 	// Much of the main() can be put into a loop for problems with multiple data sets
 	// but you need to do that on your own
-	// You could set finish and wall outside of main() if you want
 	public static void main(String[] args) throws FileNotFoundException {
 		// Set up the dimensions of the maze, as well as what the walls and finish are
 		R = 9;
 		C = 8;
+
+		// You could set finish and wall outside of main() if you want
 		finish = 'E';
 		wall = '@';
 
@@ -47,7 +48,7 @@ public class GenericDijkstra {
 			}
 		}
 
-		// Finds the shortest path
+		// Finds the shortest path and saves it into end
 		while (!(queue.isEmpty())) {
 			end = queue.poll();
 			if (maze[end.r][end.c] == finish) {
@@ -57,12 +58,13 @@ public class GenericDijkstra {
 			}
 		}
 
-		// Output
+		// Put the output here
 		System.out.println(end.dist);
 	}
 
 	private static void solve(Node node) {
-		// For reaching outside do if (node.r == 0 || node.c == 0 || node.r == R - 1 || node.c == C - 1)
+		// For reaching outside change the if statement to:
+		// if (node.r == 0 || node.c == 0 || node.r == R - 1 || node.c == C - 1) {
 		if (maze[node.r][node.c] == finish) {
 			return;
 		}
@@ -85,12 +87,12 @@ public class GenericDijkstra {
 		// Goes through the queue to find the node at spot [r][c] in the maze
 		Node next = null;
 		for (Node n : queue) {
-			// Node's .equals() is based off of only r and c
+			// Node's .equals() is based off of only r and c so the distance and previous node don't matter
 			if (n.equals(new Node(r, c, -1, null))) {
 				next = n;
 			}
 		}
-		// If the node is still in the queue then update the cost if you found a shorter route
+		// If the node is still in the queue (e.g. it found it) then update the cost if you found a shorter route
 		if (next != null) {
 			queue.remove(next);
 
@@ -103,6 +105,7 @@ public class GenericDijkstra {
 		}
 	}
 
+	// You shouldn't need to change any of this
 	static class Node implements Comparable<Node> {
 		// Row and column
 		int r, c;
