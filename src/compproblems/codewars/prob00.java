@@ -1,3 +1,5 @@
+package compproblems.codewars;
+
 import java.io.FileNotFoundException;
 
 public class prob00 {
