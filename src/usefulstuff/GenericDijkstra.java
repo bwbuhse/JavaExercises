@@ -22,13 +22,15 @@ public class GenericDijkstra {
 	// Much of the main() can be put into a loop for problems with multiple data sets
 	// but you need to do that on your own
 	public static void main(String[] args) throws FileNotFoundException {
+		int i = 0;
+
 		// Set up the dimensions of the maze, as well as what the walls and finish are
-		R = 9;
-		C = 8;
+		R = 201;
+		C = 201;
 
 		// You could set finish and wall outside of main() if you want
-		finish = 'E';
-		wall = '@';
+		finish = 'G';
+		wall = '#';
 
 		// Replace maze.txt with the name of the input
 		Scanner file = new Scanner(new File("maze.txt"));
@@ -58,10 +60,12 @@ public class GenericDijkstra {
 			} else {
 				solve(end);
 			}
+			i++;
 		}
 
 		// Put the output here
 		System.out.println(end.dist);
+		System.out.println(i);
 	}
 
 	private static void solve(Node node) {
@@ -85,7 +89,7 @@ public class GenericDijkstra {
 	private static void changeCost(Node node, int r, int c) {
 		// Alternate cost to compare the next node to
 		// If there are spots on the maze with different costs then this must be conditional
-		int alt = node.dist + 1;
+		int alt = maze[r][c] == 'm' ? node.dist + 11 : node.dist + 1;
 		// Goes through the queue to find the node at spot [r][c] in the maze
 		Node next = null;
 		for (Node n : queue) {

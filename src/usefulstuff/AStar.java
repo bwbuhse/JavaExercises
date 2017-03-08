@@ -22,13 +22,15 @@ public class AStar {
 	// Much of the main() can be put into a loop for problems with multiple data sets
 	// but you need to do that on your own
 	public static void main(String[] args) throws FileNotFoundException {
+		int i = 0;
+
 		// Set up the dimensions of the maze, as well as what the walls and finish are
-		R = 9;
-		C = 8;
+		R = 201;
+		C = 201;
 
 		// You could set finish and wall outside of main() if you want
-		finish = 'E';
-		wall = '@';
+		finish = 'G';
+		wall = '#';
 
 		// Replace maze.txt with the name of the input
 		Scanner file = new Scanner(new File("maze.txt"));
@@ -39,7 +41,7 @@ public class AStar {
 		for (int r = 0; r < R; r++)
 			maze[r] = file.nextLine().toCharArray();
 
-		Node temp = null;
+		Node temp = new Node(-1, -1, -1, null, -1);
 		for (int r = 0; r < R; r++) {
 			for (int c = 0; c < C; c++) {
 				// Change S to whatever character signifies the start
@@ -53,14 +55,15 @@ public class AStar {
 			for (int c = 0; c < C; c++) {
 				// Change S to whatever character signifies the start
 				if (maze[r][c] == 'S')
-					queue.add(new Node(r, c, 0, null, (int) Math.hypot(r - temp.r, c - temp.c)));
+					queue.add(new Node(r, c, 0, null, Math.abs(r - temp.r) + Math.abs(c - temp.c)));
 				else
-					queue.add(new Node(r, c, Integer.MAX_VALUE, null, (int) Math.hypot(r - temp.r, c - temp.c)));
+					queue.add(new Node(r, c, Integer.MAX_VALUE, null, Math.abs(r - temp.r) + Math.abs(c - temp.c)));
 			}
 		}
 
 		// Finds the shortest path and saves it into end
 		while (!(queue.isEmpty())) {
+			i++;
 			end = queue.poll();
 			if (maze[end.r][end.c] == finish) {
 				break;
@@ -71,6 +74,7 @@ public class AStar {
 
 		// Put the output here
 		System.out.println(end.dist);
+		System.out.println(i);
 	}
 
 	private static void solve(Node node) {
@@ -94,7 +98,7 @@ public class AStar {
 	private static void changeCost(Node node, int r, int c) {
 		// Alternate cost to compare the next node to
 		// If there are spots on the maze with different costs then this must be conditional
-		int alt = node.dist + 1;
+		int alt = maze[r][c] == 'm' ? node.dist + 11 : node.dist + 1;
 		// Goes through the queue to find the node at spot [r][c] in the maze
 		Node next = null;
 		for (Node n : queue) {
@@ -154,7 +158,7 @@ public class AStar {
 
 		@Override
 		public int compareTo(Node o) {
-			return o.heuristic - heuristic;
+			return (dist + heuristic) - (o.dist + o.heuristic);
 		}
 	}
 }
