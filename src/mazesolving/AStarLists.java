@@ -15,7 +15,7 @@ public class AStarLists {
 	private static char[][] maze = new char[R][];
 	private static List<Node> open = new ArrayList<>();
 	private static List<Node> closed = new ArrayList<>();
-	private static Node currentNode;
+	private static Node end;
 
 	public static void main(String[] args) throws FileNotFoundException {
 		long start = System.currentTimeMillis();
@@ -28,10 +28,10 @@ public class AStarLists {
 
 		for (int r = 0; r < R; r++)
 			for (int c = 0; c < C; c++)
-				if (maze[r][c] == finish) currentNode = new Node(r, c);
+				if (maze[r][c] == finish) end = new Node(r, c);
 
-		endR = currentNode.r;
-		endC = currentNode.c;
+		endR = end.r;
+		endC = end.c;
 
 		for (int r = 0; r < R; r++) {
 			for (int c = 0; c < C; c++) {
@@ -43,9 +43,9 @@ public class AStarLists {
 		}
 		Collections.sort(open);
 		while (open.size() > 0 && maze[open.get(0).r][open.get(0).c] != finish) {
-			currentNode = open.remove(0);
-			solve(currentNode);
-			closed.add(currentNode);
+			end = open.remove(0);
+			solve(end);
+			closed.add(end);
 			Collections.sort(open);
 		}
 
