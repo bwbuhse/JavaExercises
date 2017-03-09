@@ -1,11 +1,11 @@
-package usefulstuff;
+package mazesolving;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.PriorityQueue;
 import java.util.Scanner;
 
-public class AStar {
+public class GenericDijkstra {
 
 	// Num of rows and columns
 	private static int R, C;
@@ -22,7 +22,7 @@ public class AStar {
 	// Much of the main() can be put into a loop for problems with multiple data sets
 	// but you need to do that on your own
 	public static void main(String[] args) throws FileNotFoundException {
-		int i = 0;
+		long start = System.currentTimeMillis();
 
 		// Set up the dimensions of the maze, as well as what the walls and finish are
 		R = 201;
@@ -41,29 +41,19 @@ public class AStar {
 		for (int r = 0; r < R; r++)
 			maze[r] = file.nextLine().toCharArray();
 
-		Node temp = new Node(-1, -1, -1, null, -1);
-		for (int r = 0; r < R; r++) {
-			for (int c = 0; c < C; c++) {
-				// Change S to whatever character signifies the start
-				if (maze[r][c] == finish)
-					temp = new Node(r, c, -1, null, 0);
-			}
-		}
-
 		// Adds every spot in the maze to the queue
 		for (int r = 0; r < R; r++) {
 			for (int c = 0; c < C; c++) {
 				// Change S to whatever character signifies the start
 				if (maze[r][c] == 'S')
-					queue.add(new Node(r, c, 0, null, Math.abs(r - temp.r) + Math.abs(c - temp.c)));
+					queue.add(new Node(r, c, 0, null));
 				else
-					queue.add(new Node(r, c, Integer.MAX_VALUE, null, Math.abs(r - temp.r) + Math.abs(c - temp.c)));
+					queue.add(new Node(r, c, Integer.MAX_VALUE, null));
 			}
 		}
 
 		// Finds the shortest path and saves it into end
 		while (!(queue.isEmpty())) {
-			i++;
 			end = queue.poll();
 			if (maze[end.r][end.c] == finish) {
 				break;
@@ -74,7 +64,7 @@ public class AStar {
 
 		// Put the output here
 		System.out.println(end.dist);
-		System.out.println(i);
+		System.out.println(System.currentTimeMillis() - start);
 	}
 
 	private static void solve(Node node) {
@@ -85,14 +75,14 @@ public class AStar {
 		}
 
 		// Updates the cost of all nodes around it
-		if (node.c + 1 < C && maze[node.r][node.c + 1] != wall)
-			changeCost(node, node.r, node.c + 1);
-		if (node.c - 1 >= 0 && maze[node.r][node.c - 1] != wall)
-			changeCost(node, node.r, node.c - 1);
 		if (node.r + 1 < R && maze[node.r + 1][node.c] != wall)
 			changeCost(node, node.r + 1, node.c);
 		if (node.r - 1 >= 0 && maze[node.r - 1][node.c] != wall)
 			changeCost(node, node.r - 1, node.c);
+		if (node.c + 1 < C && maze[node.r][node.c + 1] != wall)
+			changeCost(node, node.r, node.c + 1);
+		if (node.c - 1 >= 0 && maze[node.r][node.c - 1] != wall)
+			changeCost(node, node.r, node.c - 1);
 	}
 
 	private static void changeCost(Node node, int r, int c) {
@@ -103,7 +93,7 @@ public class AStar {
 		Node next = null;
 		for (Node n : queue) {
 			// Node's .equals() is based off of only r and c so the distance and previous node don't matter
-			if (n.equals(new Node(r, c, -1, null, -1))) {
+			if (n.equals(new Node(r, c, -1, null))) {
 				next = n;
 			}
 		}
@@ -128,15 +118,12 @@ public class AStar {
 		int dist;
 		// The previous node
 		Node prev;
-		// Heuristic
-		int heuristic;
 
-		Node(int r, int c, int dist, Node prev, int heuristic) {
+		Node(int r, int c, int dist, Node prev) {
 			this.r = r;
 			this.c = c;
 			this.dist = dist;
 			this.prev = prev;
-			this.heuristic = heuristic;
 		}
 
 		@Override
@@ -158,7 +145,7 @@ public class AStar {
 
 		@Override
 		public int compareTo(Node o) {
-			return (dist + heuristic) - (o.dist + o.heuristic);
+			return dist - o.dist;
 		}
 	}
 }
