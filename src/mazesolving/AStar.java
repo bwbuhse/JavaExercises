@@ -1,4 +1,4 @@
-package usefulstuff;
+package mazesolving;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,8 +10,7 @@ public class AStar {
 	// Num of rows and columns
 	private static int R, C;
 
-	// Whatever character represents the end of the maze
-	private static char finish;
+
 	// Whatever character represents walls in the maze
 	private static char wall;
 
@@ -29,7 +28,8 @@ public class AStar {
 		C = 201;
 
 		// You could set finish and wall outside of main() if you want
-		finish = 'G';
+		// Whatever character represents the end of the maze
+		char finish = 'G';
 		wall = '#';
 
 		// Replace maze.txt with the name of the input
@@ -56,7 +56,7 @@ public class AStar {
 				// Change S to whatever character signifies the start
 				if (maze[r][c] == 'S')
 					queue.add(new Node(r, c, 0, null, Math.abs(r - temp.r) + Math.abs(c - temp.c)));
-				else
+				else if (maze[r][c] != wall)
 					queue.add(new Node(r, c, Integer.MAX_VALUE, null, Math.abs(r - temp.r) + Math.abs(c - temp.c)));
 			}
 		}
@@ -78,12 +78,6 @@ public class AStar {
 	}
 
 	private static void solve(Node node) {
-		// For reaching outside change the if statement to:
-		// if (node.r == 0 || node.c == 0 || node.r == R - 1 || node.c == C - 1) {
-		if (maze[node.r][node.c] == finish) {
-			return;
-		}
-
 		// Updates the cost of all nodes around it
 		if (node.c + 1 < C && maze[node.r][node.c + 1] != wall)
 			changeCost(node, node.r, node.c + 1);
@@ -105,6 +99,7 @@ public class AStar {
 			// Node's .equals() is based off of only r and c so the distance and previous node don't matter
 			if (n.equals(new Node(r, c, -1, null, -1))) {
 				next = n;
+				break;
 			}
 		}
 		// If the node is still in the queue (e.g. it found it) then update the cost if you found a shorter route

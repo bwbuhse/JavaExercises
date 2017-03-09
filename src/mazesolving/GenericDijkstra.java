@@ -1,4 +1,4 @@
-package usefulstuff;
+package mazesolving;
 
 import java.io.File;
 import java.io.FileNotFoundException;
