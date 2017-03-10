@@ -2,10 +2,7 @@ package mazesolving;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class DijkstraLists {
 
@@ -13,13 +10,13 @@ public class DijkstraLists {
 	private static char wall;
 	private static char[][] maze = new char[R][];
 	private static List<Node> open = new ArrayList<>();
-	private static List<Node> closed = new ArrayList<>();
+	private static Set<Node> closed = new HashSet<>();
 
 	public static void main(String[] args) throws FileNotFoundException {
 		long start = System.currentTimeMillis();
 		Scanner file = new Scanner(new File("maze.txt"));
 		wall = '#';
-		Node end;
+		Node node;
 		char finish = 'G';
 
 		for (int r = 0; r < R; r++)
@@ -33,16 +30,14 @@ public class DijkstraLists {
 				}
 			}
 		}
-		Collections.sort(open);
-		while (open.size() > 0 && maze[open.get(0).r][open.get(0).c] != finish) {
-			end = open.remove(0);
-			closed.add(end);
-			solve(end);
+		while (!open.isEmpty() && maze[open.get(0).r][open.get(0).c] != finish) {
+			node = open.remove(0);
+			closed.add(node);
+			solve(node);
 			Collections.sort(open);
 		}
 
 		System.out.println(open.get(0).dist);
-		System.out.println(closed.size());
 		System.out.println(System.currentTimeMillis() - start);
 	}
 

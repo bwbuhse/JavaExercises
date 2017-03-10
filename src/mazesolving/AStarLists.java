@@ -2,10 +2,7 @@ package mazesolving;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class AStarLists {
 
@@ -14,7 +11,7 @@ public class AStarLists {
 	private static char wall;
 	private static char[][] maze = new char[R][];
 	private static List<Node> open = new ArrayList<>();
-	private static List<Node> closed = new ArrayList<>();
+	private static Set<Node> closed = new HashSet<>();
 	private static Node end;
 
 	public static void main(String[] args) throws FileNotFoundException {
@@ -41,8 +38,7 @@ public class AStarLists {
 				}
 			}
 		}
-		Collections.sort(open);
-		while (open.size() > 0 && maze[open.get(0).r][open.get(0).c] != finish) {
+		while (!open.isEmpty() && maze[open.get(0).r][open.get(0).c] != finish) {
 			end = open.remove(0);
 			solve(end);
 			closed.add(end);
@@ -50,7 +46,6 @@ public class AStarLists {
 		}
 
 		System.out.println(open.get(0).dist);
-		System.out.println(closed.size());
 		System.out.println(System.currentTimeMillis() - start);
 	}
 
