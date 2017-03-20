@@ -6,7 +6,7 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Scanner;
 
-public class Chal303 {
+public class MonsterMaze {
 	private static final int R = 25;     // Number of rows in the maze
 	private static final int C = 25;     // Number of cols in the maze
 
