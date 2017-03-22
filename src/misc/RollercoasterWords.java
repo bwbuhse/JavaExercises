@@ -6,7 +6,6 @@ import java.nio.file.Paths;
 
 public class RollercoasterWords {
 	public static void main(String[] args) throws IOException {
-		long start = System.currentTimeMillis();
 		System.out.println(
 				Files.lines(Paths.get("src/enable1.txt"))
 						.filter(s -> s.length() > 4)
@@ -32,6 +31,5 @@ public class RollercoasterWords {
 						})
 						.count()
 		);
-		System.out.println(System.currentTimeMillis() - start);
 	}
 }
