@@ -9,22 +9,17 @@ public class RollercoasterWords {
 	public static void main(String[] args) throws FileNotFoundException {
 		Scanner file = new Scanner(new File("src/enable1.txt"));
 
-		HashSet<String> dictionary = new HashSet<>();
+		HashSet<String> words = new HashSet<>();
 		while (file.hasNext()) {
-			dictionary.add(file.nextLine());
+			String word = file.nextLine();
+			if (word.length() > 4 && isRollercoaster(word))
+				words.add(word);
 		}
-
-		System.out.println(
-				dictionary.stream()
-						.filter(s -> s.length() > 4)
-						.filter(RollercoasterWords::isRollercoaster)
-						.count()
-		);
+		System.out.println(words.size());
 
 	}
 
 	private static boolean isRollercoaster(String word) {
-		word = word.toLowerCase();
 		boolean direction;
 		if (word.charAt(0) < word.charAt(1))
 			direction = false;
