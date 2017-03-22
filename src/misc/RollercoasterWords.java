@@ -1,22 +1,17 @@
 package misc;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.HashSet;
-import java.util.Scanner;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class RollercoasterWords {
-	public static void main(String[] args) throws FileNotFoundException {
-		Scanner file = new Scanner(new File("src/enable1.txt"));
-
-		HashSet<String> words = new HashSet<>();
-		while (file.hasNext()) {
-			String word = file.nextLine();
-			if (word.length() > 4 && isRollercoaster(word))
-				words.add(word);
-		}
-		System.out.println(words.size());
-
+	public static void main(String[] args) throws IOException {
+		System.out.println(
+				Files.lines(Paths.get("src/enable1.txt"))
+						.filter(s -> s.length() > 4)
+						.filter(RollercoasterWords::isRollercoaster)
+						.count()
+		);
 	}
 
 	private static boolean isRollercoaster(String word) {
@@ -34,9 +29,8 @@ public class RollercoasterWords {
 			if (direction) {
 				if (at >= next)
 					return false;
-			} else {
-				if (at <= next)
-					return false;
+			} else if (at <= next) {
+				return false;
 			}
 			direction = !direction;
 		}
