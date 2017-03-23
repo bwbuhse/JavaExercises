@@ -16,7 +16,7 @@ public class MonsterMaze {
 
 	public static void main(String[] args) throws FileNotFoundException {
 
-		Scanner file = new Scanner(new File("random/src/random/in303.dat"));
+		Scanner file = new Scanner(new File("maze.txt"));
 
 		for (int i = 0; i < R; i++)
 			maze[i] = file.nextLine().toCharArray();
