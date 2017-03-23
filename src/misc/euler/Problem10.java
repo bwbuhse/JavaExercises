@@ -2,7 +2,7 @@ package misc.euler;
 
 import java.util.Arrays;
 
-public class Problem7 {
+public class Problem10 {
 	public static void main(String[] args) {
 		int length = 100000000;
 		boolean[] nums = new boolean[length];
@@ -17,14 +17,11 @@ public class Problem7 {
 			}
 		}
 
-		for (int i = 1, count = 0; i < length; i++) {
+		long sum = 0;
+		for (int i = 1; i < 2000000; i++) {
 			if (nums[i])
-				count++;
-			if (count == 10001) {
-				System.out.println(i);
-				break;
-			}
+				sum += i;
 		}
-
+		System.out.println(sum);
 	}
 }
