@@ -52,6 +52,7 @@ public class Problem35 {
 		for (String digit : digits) {
 			out += digit;
 		}
+
 		return Integer.parseInt(out);
 	}
 }
