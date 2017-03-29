@@ -1,5 +1,7 @@
 package mazesolving;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -107,7 +109,7 @@ public class DijkstraLists {
 		}
 
 		@Override
-		public int compareTo(Node o) {
+		public int compareTo(@NotNull Node o) {
 			return dist - o.dist;
 		}
 	}
