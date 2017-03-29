@@ -1,24 +1,20 @@
 package misc.euler;
 
-import java.math.BigInteger;
+import java.util.Arrays;
 
 public class Problem15 {
 	public static void main(String[] args) {
-		System.out.println(factorial(40).divide(factorial(20)));
-		System.out.println(factorial(40));
-		System.out.println(factorial(20));
+		long[][] paths = new long[21][21];
+		Arrays.fill(paths[0], 1);
+		for (int r = 1; r < paths.length; r++)
+			paths[r][0] = 1;
 
-		int sum = 0;
-		for (int i = 1; i < 40; i++)
-			sum += i;
+		for (int r = 1; r < paths.length; r++) {
+			for (int c = 1; c < paths[r].length; c++) {
+				paths[r][c] += paths[r - 1][c] + paths[r][c - 1];
+			}
+		}
 
-		System.out.println(sum);
-	}
-
-	private static BigInteger factorial(int num) {
-		BigInteger factorial = BigInteger.valueOf(1);
-		while (num > 1)
-			factorial = factorial.multiply(BigInteger.valueOf(num--));
-		return factorial;
+		System.out.println(paths[20][20]);
 	}
 }
