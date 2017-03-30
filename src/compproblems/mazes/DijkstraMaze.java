@@ -11,7 +11,6 @@ public class DijkstraMaze {
 
 	private static int R, C;
 	private static int[][] grid;
-
 	private static List<Node> open;
 	private static Set<Node> closed;
 

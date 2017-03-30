@@ -22,20 +22,25 @@ public class Problem18 {
 			triangle[i] = Stream.of(file.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
 		}
 
+		open.add(new Node(triangle[0][0], triangle[0][0], triangle[1][0], triangle[1][1]));
+		while (!open.isEmpty() && open.get(0).leftChild >= 0) {
+			Node current = open.remove(0);
+			closed.add(current);
 
+		}
 	}
 
 	static class Node implements Comparable<Node> {
 		int num;
 		int sum;
-		Node leftChild;
-		Node rightChild;
+		int leftChild;
+		int rightChild;
 
-		public Node(int num) {
+		Node(int num) {
 			this.num = num;
 		}
 
-		public Node(int num, int sum, Node leftChild, Node rightChild) {
+		Node(int num, int sum, int leftChild, int rightChild) {
 			this.num = num;
 			this.sum = sum;
 			this.leftChild = leftChild;
@@ -49,12 +54,15 @@ public class Problem18 {
 
 			Node node = (Node) o;
 
-			return num == node.num;
+			return num == node.num && leftChild == node.leftChild && rightChild == node.rightChild;
 		}
 
 		@Override
 		public int hashCode() {
-			return num;
+			int result = num;
+			result = 31 * result + leftChild;
+			result = 31 * result + rightChild;
+			return result;
 		}
 
 		@Override
