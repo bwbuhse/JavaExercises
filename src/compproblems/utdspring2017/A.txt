@@ -1,0 +1,21 @@
+Joe: 3 25 8
+Jane: 20 18 0
+Joe: 6 19 0
+Jane: 3 50 1
+End of game
+Joe: 1 2 4
+Jane: 50 50 50
+Joe: 5 8 19
+Jane: 50 50 50
+Joe: 20 20 25
+Jane: 20 30 50
+Joe: 5 10 25
+End of game
+Joe: 5 7 6
+Jane: 50 50 50
+Joe: 7 10 19
+Jane: 50 50 50
+Joe: 20 20 22
+Jane: 1
+End of game
+End of games
