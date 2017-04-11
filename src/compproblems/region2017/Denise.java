@@ -9,9 +9,6 @@ import java.util.*;
 public class Denise {
 
 	private static char maze[][];
-	private static List<Node> objects;
-	private static List<Node> entrances;
-	private static List<Node> shortestPaths;
 	private static List<Node> open;
 	private static Set<Node> closed;
 
@@ -21,20 +18,19 @@ public class Denise {
 		for (int s = 0; s < sets; s++) {
 			file.nextLine();
 			maze = new char[10][];
-			objects = new ArrayList<>();
-			entrances = new ArrayList<>();
-			shortestPaths = new ArrayList<>();
+			List<Node> objects = new ArrayList<>();
+			List<Node> entrances = new ArrayList<>();
+			List<Node> shortestPaths = new ArrayList<>();
 			for (int r = 0; r < maze.length; r++)
 				maze[r] = file.nextLine().toCharArray();
 			for (int r = 0; r < maze.length; r++) {
 				for (int c = 0; c < maze[r].length; c++) {
 					if (maze[r][c] == 'o')
 						objects.add(new Node(r, c));
-					if ((r == 0 || c == 0) && maze[r][c] != '#')
+					if ((r == 0 || c == 0 || r == maze.length - 1 || c == maze[r].length - 1) && maze[r][c] != '#')
 						entrances.add(new Node(r, c, 0, null));
 				}
 			}
-
 			for (Node object : objects) {
 				for (Node entrance : entrances) {
 					open = new ArrayList<>();
@@ -52,6 +48,16 @@ public class Denise {
 					} else {
 						shortestPaths.add(open.get(0));
 					}
+				}
+			}
+			shortestPaths.sort((o1, o2) -> o2.dist - o1.dist);
+			for (int i = 0; i < shortestPaths.size(); i++) {
+				Node node = shortestPaths.get(i).prev;
+				while (node.prev != null) {
+					if (objects.contains(node)) {
+						shortestPaths.remove(node);
+					}
+					node = node.prev;
 				}
 			}
 			System.out.println(shortestPaths.size());
@@ -79,7 +85,7 @@ public class Denise {
 				break;
 			}
 		}
-		int alt = node.dist + 1;
+		int alt = node.dist + (maze[r][c] == '.' ? 2 : 1);
 		if (next.dist == -1) {
 			next.dist = alt;
 			next.prev = node;
