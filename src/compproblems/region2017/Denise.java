@@ -42,18 +42,20 @@ public class Denise {
 						solve(node);
 						Collections.sort(open);
 					}
-					if (shortestPaths.contains(object)) {
-						Node node = shortestPaths.remove(shortestPaths.indexOf(object));
-						shortestPaths.add(node.dist < open.get(0).dist ? node : open.get(0));
-					} else {
-						shortestPaths.add(open.get(0));
+					if (open.get(0).equals(object)) {
+						if (shortestPaths.contains(object)) {
+							Node node = shortestPaths.remove(shortestPaths.indexOf(object));
+							shortestPaths.add(node.dist < open.get(0).dist ? node : open.get(0));
+						} else {
+							shortestPaths.add(open.get(0));
+						}
 					}
 				}
 			}
 			shortestPaths.sort((o1, o2) -> o2.dist - o1.dist);
 			for (int i = 0; i < shortestPaths.size(); i++) {
 				Node node = shortestPaths.get(i).prev;
-				while (node.prev != null) {
+				while (node != null && node.prev != null) {
 					if (objects.contains(node)) {
 						shortestPaths.remove(node);
 					}
