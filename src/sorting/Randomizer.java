@@ -12,7 +12,7 @@ class Randomizer {
 	static int[] intList(int n, int min, int max) {
 		int[] list = new int[n];
 		for (int i = 0; i < list.length; i++) {
-			list[i] = (int) (Math.random() * (max - min)) + min;
+			list[i] = (int) (Math.random() * (max - min + 1)) + min;
 		}
 		return list;
 	}
