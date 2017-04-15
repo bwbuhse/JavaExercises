@@ -8,10 +8,7 @@ public class Mergesort {
 		nums = sort(nums);
 		System.out.println(Arrays.toString(nums));
 
-		nums = new int[25];
-		for (int i = 0; i < nums.length; i++) {
-			nums[i] = (int) (Math.random() * 50) + 1;
-		}
+		nums = Randomizer.intList(25);
 		System.out.println(Arrays.toString(nums));
 		nums = sort(nums);
 		System.out.println(Arrays.toString(nums));
