@@ -14,7 +14,7 @@ public class MergeSort {
 		System.out.println(Arrays.toString(nums));
 	}
 
-	private static int[] sort(int[] nums) {
+	public static int[] sort(int[] nums) {
 		if (nums.length == 1)
 			return nums;
 
