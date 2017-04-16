@@ -2,7 +2,7 @@ package sorting;
 
 import java.util.Arrays;
 
-public class Mergesort {
+public class MergeSort {
 	public static void main(String[] args) {
 		int[] nums = {11, 4, 8, 15, 5, 10, 12, 1, 17, 18};
 		nums = sort(nums);
