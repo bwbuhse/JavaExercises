@@ -21,12 +21,14 @@ public class RememberMD5 {
 													for (int t = 0; t < 3; t++) {
 														for (int u = 0; u < 3; u++) {
 															for (int v = 0; v < 3; v++) {
-																String name = convert(i, j, k, l, m, n, o, p, q, r, s, t, u, v);
-																md.update(name.getBytes());
-																byte[] digest = md.digest();
-																String myHash = DatatypeConverter.printHexBinary(digest).toUpperCase();
-																if (myHash.equals("1b657b7fe26eda5b3c1309d340f1674d".toUpperCase())) {
-																	System.out.println(name);
+																for (int w = 0; w < 3; w++) {
+																	String name = convert(i, j, k, l, m, n, o, p, q, r, s, t, u, v, w);
+																	md.update(name.getBytes());
+																	byte[] digest = md.digest();
+																	String myHash = DatatypeConverter.printHexBinary(digest).toUpperCase();
+																	if (myHash.equals("1b657b7fe26eda5b3c1309d340f1674d".toUpperCase())) {
+																		System.out.println(name);
+																	}
 																}
 															}
 														}
