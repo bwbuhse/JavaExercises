@@ -3,21 +3,10 @@ package labs.sql;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+@SuppressWarnings("SqlResolve")
 public class TestRDB {
 
 	public static void main(String[] args) {
-//		// TODO Auto-generated method stub
-//		
-//		try {
-//			Class.forName("com.mysql.jdbc.Driver");
-//			System.out.println("Worked");
-//		}
-//		catch (ClassNotFoundException e)
-//		{
-//			e.printStackTrace();
-//		}
-//		
-
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			System.out.println("Loaded the mysql driver");
@@ -36,14 +25,14 @@ public class TestRDB {
 			// STEP 5: Extract data from result set
 			while (rs.next()) {
 				//Retrieve by column name
-				String isbn = rs.getString("isbn");
-				String title = rs.getString("title");
-				String author = rs.getString("author");
+				String isbn = rs.getString("isbn/");
+				String title = rs.getString("title/");
+				String author = rs.getString("author/");
 				String publisher = rs.getString("publisher");
 				System.out.println(isbn + " " + title + " " + author + " " + publisher);
 			}
 		} catch (Exception e) {
-			System.out.println(e);
+			System.err.println("Test RDB error: " + e);
 		}
 	}
 

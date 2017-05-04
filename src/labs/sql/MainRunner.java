@@ -1,31 +1,24 @@
 package labs.sql;
 
-public class MainRunner
-{
-	DBConnection myConn;
-	
-	public MainRunner()
-	{
-		// Start-up jFrame and main/home panel
-		
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class MainRunner {
+
+	private MainRunner() throws SQLException {
 		// Make connection to database
-		myConn = new DBConnection();
+		Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "");
 		// Login
 		try {
-			new LoginProcess(myConn.getPrivConn(), myConn.getPrivStatement());
+			new LoginProcess(myConn.createStatement());
+		} catch (Exception e) {
+			System.err.println("Login error:" + e);
 		}
-		catch(Exception e)
-		{
-			System.err.println(e);
-			System.exit(0);
-		}
-		// Run programs
-		//new RunProgram();
-		
-		
+
 	}
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+
+	public static void main(String[] args) throws SQLException {
 		new MainRunner();
 	}
 
