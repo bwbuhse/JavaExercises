@@ -1,0 +1,64 @@
+5 4 2
+XXX.
+X..X
+XXX.
+X..X
+XXX.
+3 3 9
+...
+X.X
+...
+5 4 2
+XXX.
+X..X
+XXX.
+X..X
+XXX.
+4 7 8
+...XX..
+X.X..XX
+XXX.X..
+XXX....
+3 3 9
+...
+X.X
+...
+10 5 8
+XX.X.
+X.XX.
+XXX..
+.X.X.
+X...X
+.X.X.
+XX.X.
+XXXXX
+..X.X
+XXX.X
+7 7 5
+..XXX..
+.X.XXX.
+XX...X.
+X......
+....X..
+X.X..XX
+.X...XX
+9 6 1
+.X.X.X
+....XX
+X.X.XX
+XXX.X.
+....XX
+..X..X
+.X....
+.XX..X
+.XX...
+9 7 1
+XXXX...
+XX.X.X.
+X.XX..X
+X.XXX..
+.XX.XX.
+.XXXX.X
+...XX.X
+XXXX.XX
+XXX.XXX
