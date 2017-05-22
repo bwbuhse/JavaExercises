@@ -17,5 +17,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="mysql-connector-java-5.1" level="application" />
+    <orderEntry type="library" name="commons-csv-1" level="project" />
   </component>
 </module>
